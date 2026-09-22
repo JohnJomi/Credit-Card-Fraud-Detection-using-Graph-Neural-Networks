@@ -30,9 +30,9 @@ const edges: [string, string][] = [
 ]
 
 const colors: Record<NodeSpec['kind'], string> = {
-  normal: '#4A88E8',
-  fraud: '#E94B4B',
-  selected: '#FFD84D',
+  normal: '#3E6C93',
+  fraud: '#B0503F',
+  selected: '#1F5F50',
 }
 
 /** Static illustrative transaction graph used in marketing surfaces (hero, sign-in). Not backed by live data. */
@@ -62,7 +62,7 @@ export default function MiniGraph({ className = '' }: { className?: string }) {
             r={n.kind === 'selected' ? 9 : 7}
             fill={colors[n.kind]}
             className={n.kind === 'fraud' ? 'node-pulse' : ''}
-            stroke={n.kind === 'selected' ? '#FFD84D' : 'transparent'}
+            stroke={n.kind === 'selected' ? '#1F5F50' : 'transparent'}
             strokeWidth={n.kind === 'selected' ? 3 : 0}
             strokeOpacity={0.5}
           />

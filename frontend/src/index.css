@@ -14,21 +14,21 @@
   --color-border-soft: rgba(0, 0, 0, 0.05);
   --color-border-hover: rgba(0, 0, 0, 0.14);
 
-  --color-accent: #ffd84d;
-  --color-accent-soft: #fff0a8;
-  --color-accent-border: rgba(255, 216, 77, 0.4);
+  --color-accent: #1f5f50;
+  --color-accent-soft: #e3eeea;
+  --color-accent-border: rgba(31, 95, 80, 0.35);
 
-  --color-normal: #4a88e8;
-  --color-normal-soft: #eaf2ff;
-  --color-normal-border: rgba(74, 136, 232, 0.35);
+  --color-normal: #3e6c93;
+  --color-normal-soft: #e7eef3;
+  --color-normal-border: rgba(62, 108, 147, 0.32);
 
-  --color-fraud: #e94b4b;
-  --color-fraud-soft: #fde8e7;
-  --color-fraud-border: rgba(233, 75, 75, 0.35);
+  --color-fraud: #b0503f;
+  --color-fraud-soft: #f5e9e4;
+  --color-fraud-border: rgba(176, 80, 63, 0.32);
 
-  --color-selected: #ffd84d;
-  --color-selected-soft: #fff0a8;
-  --color-selected-border: rgba(255, 216, 77, 0.5);
+  --color-selected: #1f5f50;
+  --color-selected-soft: #e3eeea;
+  --color-selected-border: rgba(31, 95, 80, 0.4);
 
   --color-ink: #171717;
   --color-ink-dim: #5e5e5e;
@@ -58,7 +58,7 @@ html {
 body {
   margin: 0;
   background:
-    radial-gradient(circle at 85% 10%, rgba(255, 216, 77, 0.16), transparent 35%),
+    radial-gradient(circle at 85% 10%, rgba(31, 95, 80, 0.1), transparent 35%),
     radial-gradient(circle at 15% 85%, rgba(255, 255, 255, 0.8), transparent 40%),
     var(--color-bg);
   color: var(--color-ink);

@@ -95,9 +95,7 @@ export default function Landing() {
 
         <div className="grid md:grid-cols-2 gap-6 mt-12">
           <Reveal className="rounded-card border border-border bg-surface shadow-card p-6">
-            <div className="text-xs font-semibold uppercase tracking-widest text-ink-faint mb-4">
-              Traditional ML
-            </div>
+            <div className="text-sm font-medium text-ink-faint mb-4">Traditional ML</div>
             <div className="flex flex-col items-center gap-2 font-mono text-sm text-ink-dim">
               <span>Transaction A</span>
               <span aria-hidden="true">↓</span>
@@ -108,9 +106,7 @@ export default function Landing() {
           </Reveal>
 
           <Reveal className="rounded-card border border-accent-border bg-surface shadow-card p-6">
-            <div className="text-xs font-semibold uppercase tracking-widest text-accent mb-4">
-              Graph Neural Network
-            </div>
+            <div className="text-sm font-medium text-accent mb-4">Graph Neural Network</div>
             <div className="flex flex-col items-center gap-2 font-mono text-sm text-ink-dim">
               <span>Transaction A</span>
               <span aria-hidden="true">↓ neighbors ↓</span>

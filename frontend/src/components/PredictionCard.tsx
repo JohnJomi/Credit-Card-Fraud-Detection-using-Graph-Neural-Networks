@@ -17,9 +17,8 @@ export default function PredictionCard({ transaction }: { transaction: Transacti
         isFraud ? 'bg-fraud-soft border-fraud-border' : 'bg-normal-soft border-normal-border'
       }`}
     >
-      <div className="text-xs text-ink-dim uppercase tracking-wide">Prediction</div>
       <div
-        className={`text-2xl font-semibold flex items-center gap-2 mt-1 ${
+        className={`text-2xl font-semibold flex items-center gap-2 ${
           isFraud ? 'text-fraud' : 'text-normal'
         }`}
       >

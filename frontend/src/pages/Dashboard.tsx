@@ -84,7 +84,7 @@ export default function Dashboard() {
         {/* METRICS */}
         <section className="flex flex-col gap-4">
           <div>
-            <div className="text-xs uppercase tracking-widest text-ink-faint mb-2">Dataset</div>
+            <div className="text-sm font-medium text-ink-dim mb-2">Dataset</div>
             <div className="flex flex-wrap gap-3">
               <MetricCard label="Transactions" value={stats?.nodes ?? 0} />
               <MetricCard
@@ -101,7 +101,7 @@ export default function Dashboard() {
             </div>
           </div>
           <div>
-            <div className="text-xs uppercase tracking-widest text-ink-faint mb-2">Model</div>
+            <div className="text-sm font-medium text-ink-dim mb-2">Model</div>
             <div className="flex flex-wrap gap-3">
               <MetricCard label="Precision" value={stats?.precision ?? 0} format="decimal" emphasis />
               <MetricCard label="Recall" value={stats?.recall ?? 0} format="decimal" emphasis />
@@ -127,7 +127,7 @@ export default function Dashboard() {
               onSelect={handleSelect}
             />
             <p className="text-xs text-ink-faint mt-2">
-              Blue = Normal · Red = Fraud · Amber ring = selected transaction and its
+              Blue = Normal · Red = Fraud · Teal ring = selected transaction and its
               neighbors
             </p>
           </div>
