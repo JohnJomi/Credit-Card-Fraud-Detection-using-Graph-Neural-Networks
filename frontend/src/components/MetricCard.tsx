@@ -5,6 +5,7 @@ interface Props {
   value: number
   format?: 'int' | 'percent' | 'decimal'
   emphasis?: boolean
+  tone?: 'fraud'
 }
 
 function formatValue(value: number, format: Props['format']): string {
@@ -40,14 +41,25 @@ function useCountUp(target: number, durationMs = 700) {
   return value
 }
 
-export default function MetricCard({ label, value, format = 'int', emphasis = false }: Props) {
+export default function MetricCard({
+  label,
+  value,
+  format = 'int',
+  emphasis = false,
+  tone,
+}: Props) {
   const animated = useCountUp(value)
+
+  const toneClass =
+    tone === 'fraud'
+      ? 'border-fraud-border bg-fraud-soft'
+      : emphasis
+        ? 'border-accent-border bg-accent-soft'
+        : 'border-border bg-surface'
 
   return (
     <div
-      className={`flex flex-col gap-1 rounded-lg border px-4 py-3 min-w-[104px] ${
-        emphasis ? 'border-accent-border bg-accent-soft' : 'border-border bg-surface'
-      }`}
+      className={`flex flex-col gap-1.5 rounded-card border px-5 py-4 min-w-[104px] shadow-card ${toneClass}`}
     >
       <span className="text-lg font-semibold text-ink tabular-nums">
         {formatValue(animated, format)}

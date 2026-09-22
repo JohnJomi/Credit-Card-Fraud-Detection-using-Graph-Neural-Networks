@@ -30,28 +30,40 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-bg text-ink">
-      <header className="sticky top-0 z-50 border-b border-border-soft bg-bg/90 backdrop-blur">
-        <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-8">
-            <Link to="/" className="text-sm font-semibold tracking-wide text-ink">
+      <header className="sticky top-4 z-50 px-4">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border border-border-soft bg-white/72 px-6 py-3 shadow-elevated backdrop-blur-md">
+          <div className="flex items-center gap-2">
+            <Link to="/" className="text-sm font-semibold tracking-wide text-ink px-3">
               FraudGraph
             </Link>
-            <nav aria-label="Dashboard" className="hidden md:flex gap-6 text-sm text-ink-dim">
-              <span className="text-ink">Dashboard</span>
-              <a href="#architecture" className="hover:text-ink transition-colors">
+            <nav aria-label="Dashboard" className="hidden md:flex gap-1 text-sm text-ink-dim">
+              <span className="rounded-full bg-dark px-3 py-1.5 text-white">Dashboard</span>
+              <a
+                href="#architecture"
+                className="rounded-full px-3 py-1.5 transition-colors duration-200 hover:bg-black/5 hover:text-ink"
+              >
                 Model
               </a>
-              <a href="#graph" className="hover:text-ink transition-colors">
+              <a
+                href="#graph"
+                className="rounded-full px-3 py-1.5 transition-colors duration-200 hover:bg-black/5 hover:text-ink"
+              >
                 Graph
               </a>
-              <Link to="/" className="hover:text-ink transition-colors">
+              <Link
+                to="/"
+                className="rounded-full px-3 py-1.5 transition-colors duration-200 hover:bg-black/5 hover:text-ink"
+              >
                 About
               </Link>
             </nav>
           </div>
           <div className="flex items-center gap-4 text-sm">
             <span className="text-ink-dim hidden sm:inline">{email ?? 'Demo'}</span>
-            <button onClick={handleSignOut} className="text-ink-dim hover:text-ink transition-colors">
+            <button
+              onClick={handleSignOut}
+              className="rounded-full px-3 py-1.5 text-ink-dim transition-colors duration-200 hover:bg-black/5 hover:text-ink"
+            >
               Sign Out
             </button>
           </div>
@@ -60,7 +72,9 @@ export default function Dashboard() {
 
       <main className="mx-auto max-w-7xl px-6 py-8 flex flex-col gap-8">
         <div>
-          <h1 className="text-2xl font-semibold text-ink">Fraud Detection Dashboard</h1>
+          <h1 className="text-2xl font-semibold text-ink tracking-tight">
+            Fraud Detection Dashboard
+          </h1>
           <p className="text-ink-dim mt-1 max-w-2xl">
             Explore how the GNN classifies transactions using graph structure and
             neighboring transaction information.
@@ -73,8 +87,17 @@ export default function Dashboard() {
             <div className="text-xs uppercase tracking-widest text-ink-faint mb-2">Dataset</div>
             <div className="flex flex-wrap gap-3">
               <MetricCard label="Transactions" value={stats?.nodes ?? 0} />
-              <MetricCard label="Fraudulent" value={stats?.fraud_transactions ?? 0} />
-              <MetricCard label="Fraud Rate" value={stats?.fraud_rate ?? 0} format="percent" />
+              <MetricCard
+                label="Fraudulent"
+                value={stats?.fraud_transactions ?? 0}
+                tone="fraud"
+              />
+              <MetricCard
+                label="Fraud Rate"
+                value={stats?.fraud_rate ?? 0}
+                format="percent"
+                tone="fraud"
+              />
             </div>
           </div>
           <div>
@@ -113,7 +136,7 @@ export default function Dashboard() {
         </section>
 
         {/* EXPLANATION */}
-        <section className="rounded-lg border border-border bg-surface p-6">
+        <section className="rounded-card border border-border bg-surface p-6 shadow-card">
           <h2 className="text-lg font-medium text-ink mb-2">
             Why did the GNN make this prediction?
           </h2>
@@ -136,7 +159,7 @@ export default function Dashboard() {
             </span>
             <span aria-hidden="true">↓</span>
             {selected ? (
-              <span className={selected.prediction === 'fraud' ? 'text-fraud' : 'text-accent'}>
+              <span className={selected.prediction === 'fraud' ? 'text-fraud' : 'text-normal'}>
                 {selected.prediction.toUpperCase()}
               </span>
             ) : (
@@ -147,7 +170,7 @@ export default function Dashboard() {
 
         {/* ARCHITECTURE + PERFORMANCE + DATASET INFO */}
         <section id="architecture" className="grid md:grid-cols-3 gap-6">
-          <details className="rounded-lg border border-border bg-surface p-5" open>
+          <details className="rounded-card border border-border bg-surface p-6 shadow-card" open>
             <summary className="cursor-pointer text-sm font-medium text-ink">
               Model Architecture
             </summary>
@@ -159,7 +182,7 @@ export default function Dashboard() {
             </p>
           </details>
 
-          <div className="rounded-lg border border-border bg-surface p-5">
+          <div className="rounded-card border border-border bg-surface p-6 shadow-card">
             <h3 className="text-sm font-medium text-ink mb-4">Model Performance</h3>
             <div className="grid grid-cols-2 gap-3">
               <MetricCard label="Precision" value={stats?.precision ?? 0} format="decimal" />
@@ -169,7 +192,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="rounded-lg border border-border bg-surface p-5">
+          <div className="rounded-card border border-border bg-surface p-6 shadow-card">
             <h3 className="text-sm font-medium text-ink mb-4">Dataset Information</h3>
             <dl className="text-sm flex flex-col gap-3">
               <div>

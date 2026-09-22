@@ -9,11 +9,13 @@ interface Props {
 }
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent'
+  'inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-dark'
 
 const variants = {
-  primary: 'bg-accent text-white hover:bg-blue-500',
-  secondary: 'bg-surface-2 text-ink border border-border hover:border-accent-border',
+  primary:
+    'bg-dark text-white hover:bg-dark-hover hover:-translate-y-px hover:shadow-hover active:translate-y-0',
+  secondary:
+    'bg-white/65 text-dark border border-border hover:bg-white hover:border-border-hover hover:-translate-y-px',
   ghost: 'text-ink-dim hover:text-ink',
 }
 

@@ -14,10 +14,10 @@ export default function ArchitectureDiagram({ compact = false }: { compact?: boo
       {layers.map((layer, i) => (
         <div key={i} className="flex flex-col items-center">
           <div
-            className={`rounded-md border px-4 py-2 text-center ${
+            className={`rounded-xl border px-4 py-2 text-center ${
               layer.label === 'Normal / Fraud'
                 ? 'border-accent-border bg-accent-soft'
-                : 'border-border bg-surface-2'
+                : 'border-border bg-surface-muted'
             } ${compact ? 'text-xs' : 'text-sm'}`}
           >
             <div className="font-medium text-ink">{layer.label}</div>

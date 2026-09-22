@@ -24,6 +24,7 @@ const LAYOUT_HEIGHT = 620
 
 export default function GraphView({ graph, selectedId, neighborIds, onSelect }: Props) {
   const [filter, setFilter] = useState<Filter>('all')
+  const [hoveredId, setHoveredId] = useState<number | null>(null)
   const instanceRef = useRef<ReactFlowInstance | null>(null)
 
   const layout = useMemo(() => {
@@ -49,30 +50,42 @@ export default function GraphView({ graph, selectedId, neighborIds, onSelect }: 
       .map((n) => {
         const isSelected = n.id === selectedId
         const isNeighbor = neighborSet.has(n.id)
+        const isHovered = n.id === hoveredId
         const isDimmed = hasSelection && !isSelected && !isNeighbor
-        const baseColor = n.prediction === 'fraud' ? '#ef4444' : '#3b82f6'
-        const showLabel = isSelected || isNeighbor
+        const baseColor = n.prediction === 'fraud' ? '#E94B4B' : '#4A88E8'
+        const haloColor =
+          n.prediction === 'fraud' ? 'rgba(233,75,75,0.18)' : 'rgba(74,136,232,0.18)'
+        const showLabel = isSelected || isNeighbor || isHovered
+        const baseSize = isSelected ? 16 : isNeighbor ? 11 : 7
+        const size = isHovered ? baseSize * 1.12 : baseSize
 
         return {
           id: String(n.id),
           position: layout.get(n.id) ?? { x: 0, y: 0 },
           data: { label: showLabel ? `#${n.id}` : '' },
+          // NOTE: do not set `transform` here — ReactFlow positions nodes via
+          // its own inline `transform: translate(...)` on this same element,
+          // and a transform in `style` overwrites (rather than composes with)
+          // that positioning transform, scattering every node's placement.
           style: {
-            width: isSelected ? 16 : isNeighbor ? 11 : 7,
-            height: isSelected ? 16 : isNeighbor ? 11 : 7,
+            width: size,
+            height: size,
             borderRadius: '50%',
             background: baseColor,
-            opacity: isDimmed ? 0.25 : 1,
+            opacity: isDimmed ? 0.3 : 1,
             border: isSelected
-              ? '3px solid #f59e0b'
+              ? '3px solid #FFD84D'
               : isNeighbor
-                ? '2px solid #f59e0b'
-                : '1px solid rgba(255,255,255,0.15)',
+                ? '2px solid #FFD84D'
+                : '1px solid rgba(0,0,0,0.08)',
+            filter: `drop-shadow(0 2px 5px ${haloColor})`,
+            transition: 'width 140ms ease-out, height 140ms ease-out, opacity 200ms ease-out',
             fontSize: 10,
-            color: '#94a3b8',
+            color: '#FFFFFF',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            cursor: 'pointer',
           },
         }
       })
@@ -82,23 +95,26 @@ export default function GraphView({ graph, selectedId, neighborIds, onSelect }: 
       .map((e) => {
         const touchesSelection =
           hasSelection && (e.source === selectedId || e.target === selectedId)
+        const touchesHover =
+          hoveredId !== null && (e.source === hoveredId || e.target === hoveredId)
         return {
           id: `${e.source}-${e.target}`,
           source: String(e.source),
           target: String(e.target),
           style: {
-            stroke: touchesSelection ? '#f59e0b' : 'rgba(148,163,184,0.12)',
-            strokeWidth: touchesSelection ? 1.5 : 1,
+            stroke: touchesSelection || touchesHover ? '#FFD84D' : 'rgba(0,0,0,0.08)',
+            strokeWidth: touchesSelection || touchesHover ? 1.5 : 1,
+            transition: 'stroke 140ms ease-out',
           },
         }
       })
 
     return { nodes, edges }
-  }, [graph, layout, filter, selectedId, neighborSet])
+  }, [graph, layout, filter, selectedId, neighborSet, hoveredId])
 
   if (!graph) {
     return (
-      <div className="flex items-center justify-center h-[520px] rounded-lg border border-border bg-surface text-ink-faint text-sm">
+      <div className="flex items-center justify-center h-[520px] rounded-large border border-border bg-surface text-ink-faint text-sm shadow-card">
         Loading graph…
       </div>
     )
@@ -117,20 +133,20 @@ export default function GraphView({ graph, selectedId, neighborIds, onSelect }: 
   }
 
   return (
-    <div className="rounded-lg border border-border bg-surface">
-      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-border-soft">
+    <div className="rounded-large border border-border bg-surface shadow-card overflow-hidden">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4 border-b border-border-soft">
         <div
           role="group"
           aria-label="Filter transactions by prediction"
-          className="flex gap-1 rounded-md border border-border p-0.5"
+          className="flex gap-1 rounded-full border border-border p-1"
         >
           {(['all', 'normal', 'fraud'] as Filter[]).map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
               aria-pressed={filter === f}
-              className={`px-3 py-1 text-xs rounded capitalize transition-colors ${
-                filter === f ? 'bg-accent text-white' : 'text-ink-dim hover:text-ink'
+              className={`px-3 py-1 text-xs rounded-full capitalize transition-colors duration-200 ${
+                filter === f ? 'bg-dark text-white' : 'text-ink-dim hover:text-ink'
               }`}
             >
               {f}
@@ -141,14 +157,14 @@ export default function GraphView({ graph, selectedId, neighborIds, onSelect }: 
         <div className="flex gap-2">
           <button
             onClick={handleReset}
-            className="text-xs px-3 py-1.5 rounded-md border border-border text-ink-dim hover:text-ink hover:border-accent-border transition-colors"
+            className="text-xs px-3 py-1.5 rounded-full border border-border bg-white/65 text-ink-dim hover:text-ink hover:bg-white hover:border-border-hover transition-colors duration-200"
           >
             Reset View
           </button>
           <button
             onClick={handleZoomToSelected}
             disabled={selectedId === null}
-            className="text-xs px-3 py-1.5 rounded-md border border-border text-ink-dim hover:text-ink hover:border-accent-border transition-colors disabled:opacity-40 disabled:pointer-events-none"
+            className="text-xs px-3 py-1.5 rounded-full border border-border bg-white/65 text-ink-dim hover:text-ink hover:bg-white hover:border-border-hover transition-colors duration-200 disabled:opacity-40 disabled:pointer-events-none"
           >
             Zoom to Selected
           </button>
@@ -160,13 +176,15 @@ export default function GraphView({ graph, selectedId, neighborIds, onSelect }: 
           nodes={nodes}
           edges={edges}
           onNodeClick={(_, node) => onSelect(Number(node.id))}
+          onNodeMouseEnter={(_, node) => setHoveredId(Number(node.id))}
+          onNodeMouseLeave={() => setHoveredId(null)}
           onInit={(instance) => (instanceRef.current = instance)}
           fitView
           nodesDraggable={false}
           nodesConnectable={false}
           proOptions={{ hideAttribution: true }}
         >
-          <Background color="#111a2b" gap={24} />
+          <Background color="#e4e5e3" gap={24} />
           <Controls showInteractive={false} />
         </ReactFlow>
       </div>

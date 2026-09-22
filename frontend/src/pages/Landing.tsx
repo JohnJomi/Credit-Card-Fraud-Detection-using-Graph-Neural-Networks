@@ -59,18 +59,18 @@ export default function Landing() {
             <ButtonLink to="/dashboard">Explore the Dashboard</ButtonLink>
             <a
               href="#how-it-works"
-              className="inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-medium text-ink-dim border border-border hover:text-ink hover:border-accent-border transition-colors"
+              className="inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-medium text-dark border border-border bg-white/65 hover:bg-white hover:border-border-hover hover:-translate-y-px transition-all duration-200"
             >
               How It Works
             </a>
           </div>
         </div>
         <div className="flex justify-center">
-          <div className="rounded-xl border border-border bg-surface p-6">
+          <div className="rounded-large border border-border bg-surface p-6 shadow-card">
             <MiniGraph className="w-full max-w-sm" />
             <div className="flex items-center gap-4 mt-2 text-xs text-ink-faint justify-center">
               <span className="flex items-center gap-1.5">
-                <span className="h-2 w-2 rounded-full bg-accent" /> Normal
+                <span className="h-2 w-2 rounded-full bg-normal" /> Normal
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="h-2 w-2 rounded-full bg-fraud" /> Fraud
@@ -94,7 +94,7 @@ export default function Landing() {
         </Reveal>
 
         <div className="grid md:grid-cols-2 gap-6 mt-12">
-          <Reveal className="rounded-xl border border-border bg-surface p-6">
+          <Reveal className="rounded-card border border-border bg-surface shadow-card p-6">
             <div className="text-xs font-semibold uppercase tracking-widest text-ink-faint mb-4">
               Traditional ML
             </div>
@@ -107,7 +107,7 @@ export default function Landing() {
             </div>
           </Reveal>
 
-          <Reveal className="rounded-xl border border-accent-border bg-surface p-6">
+          <Reveal className="rounded-card border border-accent-border bg-surface shadow-card p-6">
             <div className="text-xs font-semibold uppercase tracking-widest text-accent mb-4">
               Graph Neural Network
             </div>
@@ -140,7 +140,7 @@ export default function Landing() {
         </Reveal>
 
         <div className="grid md:grid-cols-2 gap-6 mt-12 items-center">
-          <Reveal className="rounded-xl border border-border bg-surface p-6 font-mono text-sm text-ink-dim">
+          <Reveal className="rounded-card border border-border bg-surface shadow-card p-6 font-mono text-sm text-ink-dim">
             <div className="text-ink font-semibold mb-3">Transaction row</div>
             <div className="flex flex-col gap-1">
               <span>Amount</span>
@@ -150,7 +150,7 @@ export default function Landing() {
             </div>
           </Reveal>
 
-          <Reveal className="rounded-xl border border-accent-border bg-surface p-6 font-mono text-sm text-ink-dim">
+          <Reveal className="rounded-card border border-accent-border bg-surface shadow-card p-6 font-mono text-sm text-ink-dim">
             <div className="text-ink font-semibold mb-3">Graph neighborhood</div>
             <div className="flex flex-col gap-1">
               <span className="text-ink">● Transaction</span>
@@ -178,7 +178,7 @@ export default function Landing() {
         </Reveal>
 
         <div className="grid md:grid-cols-3 gap-6 mt-12">
-          <Reveal className="rounded-xl border border-border bg-surface p-6 flex flex-col gap-4">
+          <Reveal className="rounded-card border border-border bg-surface shadow-card p-6 flex flex-col gap-4">
             <span className="text-xs text-ink-faint font-mono">Step 1</span>
             <h3 className="font-medium text-ink">Start with the transaction</h3>
             <div className="font-mono text-xs text-ink-dim flex flex-col gap-1">
@@ -188,7 +188,7 @@ export default function Landing() {
             </div>
           </Reveal>
 
-          <Reveal className="rounded-xl border border-border bg-surface p-6 flex flex-col gap-4">
+          <Reveal className="rounded-card border border-border bg-surface shadow-card p-6 flex flex-col gap-4">
             <span className="text-xs text-ink-faint font-mono">Step 2</span>
             <h3 className="font-medium text-ink">Listen to its neighbors</h3>
             <div className="font-mono text-xs text-ink-dim text-center leading-6">
@@ -205,7 +205,7 @@ export default function Landing() {
             </p>
           </Reveal>
 
-          <Reveal className="rounded-xl border border-border bg-surface p-6 flex flex-col gap-4">
+          <Reveal className="rounded-card border border-border bg-surface shadow-card p-6 flex flex-col gap-4">
             <span className="text-xs text-ink-faint font-mono">Step 3</span>
             <h3 className="font-medium text-ink">Make a prediction</h3>
             <div className="font-mono text-xs text-ink-dim flex flex-col items-center gap-1">
@@ -231,7 +231,7 @@ export default function Landing() {
           />
         </Reveal>
 
-        <Reveal className="mt-12 rounded-xl border border-border bg-surface p-8 flex flex-col items-center gap-6 font-mono text-sm text-ink-dim">
+        <Reveal className="mt-12 rounded-card border border-border bg-surface shadow-card p-8 flex flex-col items-center gap-6 font-mono text-sm text-ink-dim">
           <span>A ─ B ─ C</span>
           <span aria-hidden="true">↓</span>
           <span>A ← B → C</span>
@@ -263,7 +263,7 @@ export default function Landing() {
         </Reveal>
 
         <Reveal className="mt-10 max-w-xl mx-auto">
-          <details className="rounded-lg border border-border bg-surface px-4 py-3">
+          <details className="rounded-card border border-border bg-surface shadow-card px-4 py-3">
             <summary className="cursor-pointer text-sm text-ink font-medium">
               Technical details
             </summary>
@@ -287,7 +287,7 @@ export default function Landing() {
         <Reveal className="mt-12 flex flex-wrap justify-center gap-4">
           {pipeline.map((step, i) => (
             <div key={step.label} className="flex items-center gap-4">
-              <div className="w-36 rounded-lg border border-border bg-surface p-3 text-center">
+              <div className="w-36 rounded-card border border-border bg-surface shadow-card p-3 text-center">
                 <div className="text-sm font-medium text-ink">{step.label}</div>
                 <div className="text-xs text-ink-faint mt-1">{step.detail}</div>
               </div>
@@ -312,7 +312,7 @@ export default function Landing() {
             <Reveal key={card.title}>
               <a
                 href="/dashboard"
-                className="block h-full rounded-xl border border-border bg-surface p-6 hover:border-accent-border transition-colors"
+                className="block h-full rounded-card border border-border bg-surface shadow-card p-6 hover:border-accent-border hover:shadow-hover hover:-translate-y-[3px] transition-all duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
               >
                 <h3 className="font-medium text-ink mb-2">{card.title}</h3>
                 <p className="text-sm text-ink-dim">{card.body}</p>

@@ -39,71 +39,88 @@ export default function SignIn() {
       </div>
 
       <div className="flex items-center justify-center p-8">
-        <div className="w-full max-w-sm flex flex-col gap-6">
-          <div>
-            <Link to="/" className="md:hidden text-sm font-semibold tracking-wide text-ink block mb-8">
-              FraudGraph
-            </Link>
-            <h1 className="text-2xl font-semibold text-ink">Welcome back</h1>
-            <p className="text-ink-dim text-sm mt-1">Sign in to continue to FraudGraph.</p>
-          </div>
+        <div className="relative w-full max-w-sm">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -inset-10 -z-10"
+            style={{
+              background:
+                'radial-gradient(circle, rgba(255,216,77,0.14), transparent 65%)',
+            }}
+          />
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
-            <div className="flex flex-col gap-1.5">
-              <label htmlFor="email" className="text-xs text-ink-dim">
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-ink placeholder:text-ink-faint focus-visible:outline-2 focus-visible:outline-accent"
-                placeholder="you@example.com"
-              />
+          <div className="flex flex-col gap-6 rounded-card border border-border bg-surface-elevated p-8 shadow-card">
+            <div>
+              <Link
+                to="/"
+                className="md:hidden text-sm font-semibold tracking-wide text-ink block mb-8"
+              >
+                FraudGraph
+              </Link>
+              <h1 className="text-2xl font-semibold text-ink tracking-tight">Welcome back</h1>
+              <p className="text-ink-dim text-sm mt-1">Sign in to continue to FraudGraph.</p>
             </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label htmlFor="password" className="text-xs text-ink-dim">
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="rounded-md border border-border bg-surface px-3 py-2 text-sm text-ink placeholder:text-ink-faint focus-visible:outline-2 focus-visible:outline-accent"
-                placeholder="••••••••"
-              />
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="email" className="text-xs text-ink-dim">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="rounded-2xl border border-border bg-white/75 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-faint outline-none transition-[border-color,box-shadow] duration-200 focus:border-accent focus:shadow-[0_0_0_3px_rgba(255,216,77,0.18)]"
+                  placeholder="you@example.com"
+                />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label htmlFor="password" className="text-xs text-ink-dim">
+                  Password
+                </label>
+                <input
+                  id="password"
+                  type="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="rounded-2xl border border-border bg-white/75 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-faint outline-none transition-[border-color,box-shadow] duration-200 focus:border-accent focus:shadow-[0_0_0_3px_rgba(255,216,77,0.18)]"
+                  placeholder="••••••••"
+                />
+              </div>
+
+              <Button type="submit" className="mt-2">
+                Sign In
+              </Button>
+            </form>
+
+            <div className="flex items-center gap-3 text-xs text-ink-faint">
+              <span className="h-px flex-1 bg-border" />
+              Demo access
+              <span className="h-px flex-1 bg-border" />
             </div>
 
-            <Button type="submit" className="mt-2">
-              Sign In
+            <Button variant="secondary" onClick={handleDemo}>
+              Continue as Demo
             </Button>
-          </form>
 
-          <div className="flex items-center gap-3 text-xs text-ink-faint">
-            <span className="h-px flex-1 bg-border" />
-            Demo access
-            <span className="h-px flex-1 bg-border" />
+            <p className="text-xs text-ink-faint text-center">
+              This is a local demo authentication flow — no account data is sent anywhere.
+            </p>
+
+            <p className="text-sm text-ink-dim text-center">
+              Don&apos;t have an account?{' '}
+              <span
+                className="text-ink-faint cursor-not-allowed"
+                title="Account creation is not available in this demo"
+              >
+                Create one
+              </span>
+            </p>
           </div>
-
-          <Button variant="secondary" onClick={handleDemo}>
-            Continue as Demo
-          </Button>
-
-          <p className="text-xs text-ink-faint text-center">
-            This is a local demo authentication flow — no account data is sent anywhere.
-          </p>
-
-          <p className="text-sm text-ink-dim text-center">
-            Don&apos;t have an account?{' '}
-            <span className="text-ink-faint cursor-not-allowed" title="Account creation is not available in this demo">
-              Create one
-            </span>
-          </p>
         </div>
       </div>
     </div>
