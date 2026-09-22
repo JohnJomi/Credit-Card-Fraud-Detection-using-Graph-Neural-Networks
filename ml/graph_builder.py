@@ -16,6 +16,27 @@ RAW_CSV_PATH = "data/raw/creditcard.csv"
 GRAPH_PATH = "data/processed/graph.pt"
 METADATA_PATH = "data/processed/metadata.json"
 K = 5
+MAX_NODES = 15000
+SEED = 42
+
+
+def subsample(df: pd.DataFrame, max_nodes: int = MAX_NODES, seed: int = SEED) -> pd.DataFrame:
+    """The full Kaggle dataset (284,807 rows) exceeds the local-laptop node
+    budget in architecture-2.md (section 23). Keep every fraud transaction
+    plus a random sample of normal transactions so the graph stays small
+    while preserving all positive examples.
+    """
+    if len(df) <= max_nodes:
+        return df
+
+    fraud = df[df["Class"] == 1]
+    normal = df[df["Class"] == 0]
+
+    n_normal = max(0, max_nodes - len(fraud))
+    normal_sample = normal.sample(n=min(n_normal, len(normal)), random_state=seed)
+
+    sampled = pd.concat([fraud, normal_sample]).sample(frac=1.0, random_state=seed)
+    return sampled.reset_index(drop=True)
 
 
 def build_knn_edges(x: np.ndarray, k: int = K):
@@ -57,6 +78,9 @@ def make_masks(labels: np.ndarray, seed: int = 42):
 
 def main():
     df = pd.read_csv(RAW_CSV_PATH)
+    df["Class"] = df["Class"].astype(int)
+    original_count = len(df)
+    df = subsample(df)
     feature_cols = [c for c in df.columns if c != "Class"]
     labels = df["Class"].values.astype(np.int64)
 
@@ -84,10 +108,13 @@ def main():
         "num_fraud": int(labels.sum()),
         "feature_names": feature_cols,
         "k": K,
+        "source_rows": original_count,
     }
     with open(METADATA_PATH, "w") as f:
         json.dump(metadata, f, indent=2)
 
+    print(f"Loaded {original_count} transactions from Kaggle creditcard.csv, "
+          f"subsampled to {metadata['num_nodes']}")
     print(f"Graph built: {metadata['num_nodes']} nodes, {metadata['num_edges']} edges, "
           f"{metadata['num_fraud']} fraud nodes")
     print(f"Saved to {GRAPH_PATH} and {METADATA_PATH}")

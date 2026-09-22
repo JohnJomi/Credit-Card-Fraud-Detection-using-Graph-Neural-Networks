@@ -4,3 +4,9 @@ __pycache__/
 node_modules/
 dist/
 .DS_Store
+
+# raw/processed data is large and regenerable from ml/graph_builder.py
+data/raw/*.csv
+data/processed/
+archive-2.zip
+*.zip

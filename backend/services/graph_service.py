@@ -28,14 +28,18 @@ def get_stats():
 def get_subgraph(n: int = SUBGRAPH_SIZE):
     num_nodes = predictor.num_nodes()
     fraud_ids = [i for i in range(num_nodes) if predictor.true_label(i) == 1]
-
-    remaining = max(0, n - len(fraud_ids))
     normal_ids = [i for i in range(num_nodes) if predictor.true_label(i) == 0]
-    sampled_normal = random.Random(42).sample(
-        normal_ids, min(remaining, len(normal_ids))
+
+    rng = random.Random(42)
+    max_fraud = n // 2
+    sampled_fraud = (
+        rng.sample(fraud_ids, max_fraud) if len(fraud_ids) > max_fraud else fraud_ids
     )
 
-    node_ids = sorted(set(fraud_ids) | set(sampled_normal))
+    remaining = max(0, n - len(sampled_fraud))
+    sampled_normal = rng.sample(normal_ids, min(remaining, len(normal_ids)))
+
+    node_ids = sorted(set(sampled_fraud) | set(sampled_normal))
     node_id_set = set(node_ids)
 
     nodes = []
