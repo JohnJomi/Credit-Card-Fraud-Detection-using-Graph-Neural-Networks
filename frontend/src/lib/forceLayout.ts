@@ -60,6 +60,18 @@ export function computeForceLayout(
       }
     }
 
+    // Mild centering gravity keeps isolated (edge-less) nodes near the
+    // cluster instead of drifting off to infinity under repulsion alone.
+    const centerX = width / 2
+    const centerY = height / 2
+    const gravity = 0.02
+    nodes.forEach((n) => {
+      const p = pos.get(n.id)!
+      const d = disp.get(n.id)!
+      d.x += (centerX - p.x) * gravity
+      d.y += (centerY - p.y) * gravity
+    })
+
     // Attraction along edges
     edges.forEach((e) => {
       const pa = pos.get(e.source)
@@ -82,7 +94,10 @@ export function computeForceLayout(
       db.y += dy
     })
 
-    // Apply displacement, capped by temperature, and keep in bounds
+    // Apply displacement, capped by temperature. Positions are intentionally
+    // left unbounded — clamping to [0, width/height] causes repelled nodes to
+    // pile up along the edges instead of settling into a natural spread.
+    // ReactFlow's fitView call fits the viewport to wherever nodes end up.
     nodes.forEach((n) => {
       const p = pos.get(n.id)!
       const d = disp.get(n.id)!
@@ -91,8 +106,6 @@ export function computeForceLayout(
 
       p.x += (d.x / dist) * capped
       p.y += (d.y / dist) * capped
-      p.x = Math.min(width, Math.max(0, p.x))
-      p.y = Math.min(height, Math.max(0, p.y))
     })
 
     temperature *= 0.96

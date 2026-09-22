@@ -12,7 +12,7 @@ export default function ArchitectureDiagram({ compact = false }: { compact?: boo
   return (
     <div className="flex flex-col items-center gap-0">
       {layers.map((layer, i) => (
-        <div key={layer.label} className="flex flex-col items-center">
+        <div key={i} className="flex flex-col items-center">
           <div
             className={`rounded-md border px-4 py-2 text-center ${
               layer.label === 'Normal / Fraud'

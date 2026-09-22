@@ -26,20 +26,48 @@ def get_stats():
 
 
 def get_subgraph(n: int = SUBGRAPH_SIZE):
+    """Builds a connected, neighborhood-rich sample rather than an arbitrary
+    random one. A uniform random sample of `n` nodes out of the full graph
+    would include almost no real edges (each node's KNN neighbors are very
+    unlikely to also land in the same random sample), producing a dashboard
+    graph that looks like isolated dots. Instead we seed with fraud nodes
+    and expand outward along real graph edges (BFS), so the transactions
+    shown are actually each other's neighbors.
+    """
     num_nodes = predictor.num_nodes()
     fraud_ids = [i for i in range(num_nodes) if predictor.true_label(i) == 1]
     normal_ids = [i for i in range(num_nodes) if predictor.true_label(i) == 0]
 
     rng = random.Random(42)
-    max_fraud = n // 2
-    sampled_fraud = (
-        rng.sample(fraud_ids, max_fraud) if len(fraud_ids) > max_fraud else fraud_ids
-    )
+    max_seeds = min(len(fraud_ids), n // 3)
+    seeds = rng.sample(fraud_ids, max_seeds)
+    max_fraud_in_view = n // 2
 
-    remaining = max(0, n - len(sampled_fraud))
-    sampled_normal = rng.sample(normal_ids, min(remaining, len(normal_ids)))
+    fraud_id_set = set(fraud_ids)
+    visited = set(seeds)
+    fraud_count = len(seeds)
+    queue = list(seeds)
+    while queue and len(visited) < n:
+        node_id = queue.pop(0)
+        for neighbor in predictor.get_neighbors(node_id):
+            if neighbor in visited:
+                continue
+            is_fraud = neighbor in fraud_id_set
+            if is_fraud and fraud_count >= max_fraud_in_view:
+                continue
+            visited.add(neighbor)
+            queue.append(neighbor)
+            if is_fraud:
+                fraud_count += 1
+            if len(visited) >= n:
+                break
 
-    node_ids = sorted(set(sampled_fraud) | set(sampled_normal))
+    if len(visited) < n:
+        remaining_pool = [i for i in normal_ids if i not in visited]
+        fill = rng.sample(remaining_pool, min(n - len(visited), len(remaining_pool)))
+        visited.update(fill)
+
+    node_ids = sorted(visited)
     node_id_set = set(node_ids)
 
     nodes = []
