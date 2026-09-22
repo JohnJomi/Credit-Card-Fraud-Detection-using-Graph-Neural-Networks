@@ -45,7 +45,7 @@ export default function SignIn() {
             className="pointer-events-none absolute -inset-10 -z-10"
             style={{
               background:
-                'radial-gradient(circle, rgba(31,95,80,0.12), transparent 65%)',
+                'radial-gradient(circle, rgba(168,118,62,0.14), transparent 65%)',
             }}
           />
 
@@ -72,7 +72,7 @@ export default function SignIn() {
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="rounded-2xl border border-border bg-white/75 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-faint outline-none transition-[border-color,box-shadow] duration-200 focus:border-accent focus:shadow-[0_0_0_3px_rgba(31,95,80,0.18)]"
+                  className="rounded-2xl border border-border bg-white/75 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-faint outline-none transition-[border-color,box-shadow] duration-200 focus:border-accent focus:shadow-[0_0_0_3px_rgba(168,118,62,0.18)]"
                   placeholder="you@example.com"
                 />
               </div>
@@ -87,7 +87,7 @@ export default function SignIn() {
                   autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="rounded-2xl border border-border bg-white/75 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-faint outline-none transition-[border-color,box-shadow] duration-200 focus:border-accent focus:shadow-[0_0_0_3px_rgba(31,95,80,0.18)]"
+                  className="rounded-2xl border border-border bg-white/75 px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-faint outline-none transition-[border-color,box-shadow] duration-200 focus:border-accent focus:shadow-[0_0_0_3px_rgba(168,118,62,0.18)]"
                   placeholder="••••••••"
                 />
               </div>

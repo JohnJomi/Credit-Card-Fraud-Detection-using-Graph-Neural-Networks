@@ -65,7 +65,15 @@ export default function Landing() {
             </a>
           </div>
         </div>
-        <div className="flex justify-center">
+        <div className="relative flex justify-center">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -inset-12 -z-10"
+            style={{
+              background:
+                'radial-gradient(circle, rgba(168,118,62,0.12), transparent 65%)',
+            }}
+          />
           <div className="rounded-large border border-border bg-surface p-6 shadow-card">
             <MiniGraph className="w-full max-w-sm" />
             <div className="flex items-center gap-4 mt-2 text-xs text-ink-faint justify-center">

@@ -52,9 +52,9 @@ export default function GraphView({ graph, selectedId, neighborIds, onSelect }: 
         const isNeighbor = neighborSet.has(n.id)
         const isHovered = n.id === hoveredId
         const isDimmed = hasSelection && !isSelected && !isNeighbor
-        const baseColor = n.prediction === 'fraud' ? '#B0503F' : '#3E6C93'
+        const baseColor = n.prediction === 'fraud' ? '#B0503F' : '#4C7A5E'
         const haloColor =
-          n.prediction === 'fraud' ? 'rgba(176,80,63,0.2)' : 'rgba(62,108,147,0.2)'
+          n.prediction === 'fraud' ? 'rgba(176,80,63,0.2)' : 'rgba(76,122,94,0.2)'
         const showLabel = isSelected || isNeighbor || isHovered
         const baseSize = isSelected ? 16 : isNeighbor ? 11 : 7
         const size = isHovered ? baseSize * 1.12 : baseSize
@@ -74,9 +74,9 @@ export default function GraphView({ graph, selectedId, neighborIds, onSelect }: 
             background: baseColor,
             opacity: isDimmed ? 0.3 : 1,
             border: isSelected
-              ? '3px solid #1F5F50'
+              ? '3px solid #A8763E'
               : isNeighbor
-                ? '2px solid #1F5F50'
+                ? '2px solid #A8763E'
                 : '1px solid rgba(0,0,0,0.08)',
             filter: `drop-shadow(0 2px 5px ${haloColor})`,
             transition: 'width 140ms ease-out, height 140ms ease-out, opacity 200ms ease-out',
@@ -102,7 +102,7 @@ export default function GraphView({ graph, selectedId, neighborIds, onSelect }: 
           source: String(e.source),
           target: String(e.target),
           style: {
-            stroke: touchesSelection || touchesHover ? '#1F5F50' : 'rgba(0,0,0,0.08)',
+            stroke: touchesSelection || touchesHover ? '#A8763E' : 'rgba(0,0,0,0.08)',
             strokeWidth: touchesSelection || touchesHover ? 1.5 : 1,
             transition: 'stroke 140ms ease-out',
           },

@@ -127,7 +127,7 @@ export default function Dashboard() {
               onSelect={handleSelect}
             />
             <p className="text-xs text-ink-faint mt-2">
-              Blue = Normal · Red = Fraud · Teal ring = selected transaction and its
+              Green = Normal · Red = Fraud · Gold ring = selected transaction and its
               neighbors
             </p>
           </div>

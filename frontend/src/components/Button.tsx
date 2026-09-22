@@ -10,7 +10,7 @@ const base =
 
 const variants = {
   primary:
-    'bg-dark text-white hover:bg-dark-hover hover:-translate-y-px hover:shadow-hover active:translate-y-0',
+    'bg-dark text-white hover:bg-dark-hover hover:-translate-y-px hover:shadow-glow active:translate-y-0',
   secondary:
     'bg-white/65 text-dark border border-border hover:bg-white hover:border-border-hover hover:-translate-y-px',
   ghost: 'text-ink-dim hover:text-ink',

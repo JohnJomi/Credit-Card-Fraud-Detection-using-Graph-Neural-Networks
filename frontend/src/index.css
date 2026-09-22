@@ -14,21 +14,21 @@
   --color-border-soft: rgba(0, 0, 0, 0.05);
   --color-border-hover: rgba(0, 0, 0, 0.14);
 
-  --color-accent: #1f5f50;
-  --color-accent-soft: #e3eeea;
-  --color-accent-border: rgba(31, 95, 80, 0.35);
+  --color-accent: #a8763e;
+  --color-accent-soft: #f3e9d8;
+  --color-accent-border: rgba(168, 118, 62, 0.35);
 
-  --color-normal: #3e6c93;
-  --color-normal-soft: #e7eef3;
-  --color-normal-border: rgba(62, 108, 147, 0.32);
+  --color-normal: #4c7a5e;
+  --color-normal-soft: #e7f0ea;
+  --color-normal-border: rgba(76, 122, 94, 0.32);
 
   --color-fraud: #b0503f;
   --color-fraud-soft: #f5e9e4;
   --color-fraud-border: rgba(176, 80, 63, 0.32);
 
-  --color-selected: #1f5f50;
-  --color-selected-soft: #e3eeea;
-  --color-selected-border: rgba(31, 95, 80, 0.4);
+  --color-selected: #a8763e;
+  --color-selected-soft: #f3e9d8;
+  --color-selected-border: rgba(168, 118, 62, 0.4);
 
   --color-ink: #171717;
   --color-ink-dim: #5e5e5e;
@@ -40,6 +40,7 @@
   --shadow-card: 0 12px 40px rgba(0, 0, 0, 0.06);
   --shadow-hover: 0 18px 48px rgba(0, 0, 0, 0.09);
   --shadow-elevated: 0 8px 24px rgba(0, 0, 0, 0.07);
+  --shadow-glow: 0 8px 28px rgba(168, 118, 62, 0.28);
 
   --font-sans: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
 }
@@ -58,7 +59,8 @@ html {
 body {
   margin: 0;
   background:
-    radial-gradient(circle at 85% 10%, rgba(31, 95, 80, 0.1), transparent 35%),
+    radial-gradient(circle at 85% 8%, rgba(168, 118, 62, 0.1), transparent 38%),
+    radial-gradient(circle at 10% 90%, rgba(76, 122, 94, 0.05), transparent 42%),
     radial-gradient(circle at 15% 85%, rgba(255, 255, 255, 0.8), transparent 40%),
     var(--color-bg);
   color: var(--color-ink);
