@@ -6,14 +6,19 @@ export default function PredictionCard({ transaction }: { transaction: Transacti
   return (
     <div
       className={`rounded-lg p-4 border ${
-        isFraud ? 'bg-red-950/40 border-red-700' : 'bg-blue-950/40 border-blue-700'
+        isFraud ? 'bg-fraud-soft border-fraud-border' : 'bg-accent-soft border-accent-border'
       }`}
     >
-      <div className="text-xs text-gray-400 uppercase tracking-wide">Prediction</div>
-      <div className={`text-2xl font-bold ${isFraud ? 'text-red-400' : 'text-blue-400'}`}>
+      <div className="text-xs text-ink-dim uppercase tracking-wide">Prediction</div>
+      <div
+        className={`text-2xl font-bold flex items-center gap-2 ${
+          isFraud ? 'text-fraud' : 'text-accent'
+        }`}
+      >
+        <span aria-hidden="true">{isFraud ? '⚠' : '✓'}</span>
         {isFraud ? 'FRAUD' : 'NORMAL'}
       </div>
-      <div className="text-sm text-gray-300 mt-1">
+      <div className="text-sm text-ink-dim mt-1">
         Confidence: {(transaction.confidence * 100).toFixed(1)}%
       </div>
     </div>
